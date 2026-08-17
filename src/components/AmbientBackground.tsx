@@ -13,7 +13,7 @@ interface Particle {
 
 export const AmbientBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [mousePos, setMousePos] = useState<{ x: number; y: number }>({ x: -1000, y: -1000 });
+  const mousePosRef = useRef<{ x: number; y: number }>({ x: -1000, y: -1000 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -141,13 +141,14 @@ export const AmbientBackground: React.FC = () => {
       });
 
       // Subtle mouse interactive radial glow
-      if (mousePos.x > 0 && mousePos.y > 0) {
+      const mouse = mousePosRef.current;
+      if (mouse.x > 0 && mouse.y > 0) {
         const gradient = ctx.createRadialGradient(
-          mousePos.x,
-          mousePos.y,
+          mouse.x,
+          mouse.y,
           10,
-          mousePos.x,
-          mousePos.y,
+          mouse.x,
+          mouse.y,
           180
         );
         gradient.addColorStop(0, 'rgba(59, 130, 246, 0.07)');
@@ -162,7 +163,7 @@ export const AmbientBackground: React.FC = () => {
     render();
 
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+      mousePosRef.current = { x: e.clientX, y: e.clientY };
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -172,7 +173,7 @@ export const AmbientBackground: React.FC = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [mousePos.x, mousePos.y]);
+  }, []);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
