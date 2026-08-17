@@ -1,0 +1,6 @@
+{
+  "name": "FinFlow - Digital Lending Platform",
+  "description": "An interactive digital unsecured lending prototype showcasing end-to-end loan origination, India Stack integration (Aadhaar, DigiLocker, UPI), risk assessment, and cross-functional team workflows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
